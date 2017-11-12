@@ -1,0 +1,14 @@
+html body {
+    background-color: #ff8351;
+}
+body .card {
+    border: none;
+}
+.card-body {
+    background-color: #ffa07a;
+    
+}
+a {
+    text-align: center;
+    display: block;
+}
