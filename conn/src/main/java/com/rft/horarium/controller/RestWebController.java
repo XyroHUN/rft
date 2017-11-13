@@ -1,24 +1,23 @@
 package com.rft.horarium.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.rft.horarium.model.User;
+import com.rft.horarium.repository.UserRepository;
 
 @RestController
 public class RestWebController {
 	
-	List<User> usr = new ArrayList<User>();
+	@Autowired
+	UserRepository repository;
 	
-	@RequestMapping(value="/postcustomer", method=RequestMethod.POST)
-	public String postCustomer(User user){
-		usr.add(user);
-		
-		return "Sucessful!";
+	@RequestMapping(value="/register", method=RequestMethod.POST)
+	public void registerUser(@RequestBody User user){
+		repository.save(new User(user.getEmail(), user.getPassword()));
 	}
 	
 }

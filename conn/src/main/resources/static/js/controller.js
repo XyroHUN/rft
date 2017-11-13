@@ -1,7 +1,8 @@
 var app = angular.module('app', []);
-app.controller('postcontroller', function($scope, $http, $location) {
-	$scope.submitForm = function(){
-		var url = $location.absUrl() + "postcustomer";
+
+app.controller('registercontroller', function($scope, $http, $location) {
+	$scope.submitRegister = function(){
+		var url = $location.absUrl();
 		
 		var config = {
                 headers : {
@@ -9,17 +10,19 @@ app.controller('postcontroller', function($scope, $http, $location) {
                 }
         }
 		var data = {
-            email: $scope.email,
-            password: $scope.password
+            email: $scope.emailreg,
+            password: $scope.passwordreg,
+            //passwordconf: $scope.passwordconf
         };
 		
 		$http.post(url, data, config).then(function (response) {
-			$scope.postResultMessage = response.data;
+			console.log(response.data);
 		}, function error(response) {
-			$scope.postResultMessage = "Error with status: " +  response.statusText;
+			console.log(response.statusText);
 		});
 		
-		$scope.email = "";
-		$scope.password = "";
+		$scope.emailreg = "";
+		$scope.passwordreg = "";
+		//$scope.passwordconf = "";
 	}
 });
