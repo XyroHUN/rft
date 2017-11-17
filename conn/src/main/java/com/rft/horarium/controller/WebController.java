@@ -12,7 +12,7 @@ public class WebController {
         return "index";
     }
 	
-	@RequestMapping(value="/register")
+	@RequestMapping(value="/register",method = RequestMethod.GET)
     public String registerpage(){
         return "register";
     }

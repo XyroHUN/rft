@@ -6,23 +6,24 @@ app.controller('registercontroller', function($scope, $http, $location) {
 		
 		var config = {
                 headers : {
-                    'Accept': 'text/plain'
+                    'Content-Type': 'application/json;charset=utf-8;'
                 }
         }
+		
 		var data = {
             email: $scope.emailreg,
-            password: $scope.passwordreg,
-            //passwordconf: $scope.passwordconf
+            password: $scope.passwordreg
         };
 		
+		
 		$http.post(url, data, config).then(function (response) {
-			console.log(response.data);
-		}, function error(response) {
-			console.log(response.statusText);
+			$scope.postResultMessage = "Sucessful!";
+		}, function (response) {
+			$scope.postResultMessage = "Fail!";
 		});
 		
 		$scope.emailreg = "";
 		$scope.passwordreg = "";
-		//$scope.passwordconf = "";
+		$scope.passwordconf = "";
 	}
 });
