@@ -45,12 +45,18 @@ app.controller('logincontroller', function($scope, $http, $location) {
 				$scope.postResultMessage = response.data;
 
 			} else if(response.data.status == "Fail") {
-				$scope.postResultMessage = "Customer Data Error!";
-			}
+				$scope.postResultMessage = "User Data Error!";
+			} 
+			else if(response.data.status == "Not Found") {
+				$scope.postResultMessage = "Not Found";
+			} 
 
 		}, function(response) {
 			$scope.postResultMessage = "Fail!";
 		});
+		
+		$scope.email = "";
+		$scope.password = "";
 
 	}
 });
