@@ -1,0 +1,82 @@
+{
+	"task": {
+	
+		"categories": [
+			{
+			"name": "foci", 
+			"time": [
+				{"day": "monday", "hours": [10,11,12,13]},
+				{"day": "wednesday", "hours": [14,15,16,17]}
+				],
+			"rules": [1,2,2,4] 
+			},
+			{
+			"name": "zongora", 
+			"time": [
+				{"day": "monday", "hours": [8,9,14,15]},
+				{"day": "tuesday", "hours": [8,9,14,15]},
+				{"day": "wednesday", "hours": [8,9,14,15]}
+				],
+			"rules": [2,2,2,3] 
+			},
+			{
+			"name": "munka", 
+			"time": [
+				{"day": "monday", "hours": [9,10,11,12,13,14,15,16,17,18]},
+				{"day": "tuesday", "hours": [9,10,11,12,13,14,15,16,17,18]},
+				{"day": "wednesday", "hours": [9,10,11,12,13,14,15,16,17,18]},
+				{"day": "thursday", "hours": [9,10,11,12,13,14,15,16,17,18]},
+				{"day": "friday", "hours": [9,10,11,12,13,14,15,16,17,18]}				
+				],
+			"rules": [5,6,6,9] 
+			},
+			{
+			"name": "alvas", 
+			"time": [
+				{"day": "monday", "hours": [22,23,0,1,2,3,4,5,6,7,8,9,10]},
+				{"day": "tuesday", "hours": [22,23,0,1,2,3,4,5,6,7,8,9,10]},
+				{"day": "wednesday", "hours": [22,23,0,1,2,3,4,5,6,7,8,9,10]},
+				{"day": "thursday", "hours": [22,23,0,1,2,3,4,5,6,7,8,9,10]},
+				{"day": "friday", "hours": [22,23,0,1,2,3,4,5,6,7,8,9,10]},
+				{"day": "saturday", "hours": [22,23,0,1,2,3,4,5,6,7,8,9,10]},
+				{"day": "sunday", "hours": [22,23,0,1,2,3,4,5,6,7,8,9,10]}				
+				],
+			"rules": [7,7,5,9] 
+			}					
+		], 
+		"blank": [
+			{"day": "monday", "hours": [22,23]},
+			{"day": "tuesday", "hours": [11,12]},
+			{"day": "wednesday", "hours": [15]},
+			{"day": "thursday", "hours": [11,12]},
+			{"day": "friday", "hours": [22,23]},
+			{"day": "saturday", "hours": [11,12,13,14]},
+			{"day": "sunday", "hours": [11,12,13,14]}
+			]	
+	},
+	"result": {
+	"categories": [
+			{
+			"name": "foci", 
+			"time": [
+				--GENERATED--
+				] 
+			},{
+			"name": "zongora", 
+			"time": [
+				--GENERATED--
+				]
+			},{
+			"name": "munka", 
+			"time": [
+				--GENERATED--
+				]
+			},{
+			"name": "alvás", 
+			"time": [
+				--GENERATED--
+				]
+			}
+		]
+	}
+}
