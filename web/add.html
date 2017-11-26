@@ -14,76 +14,277 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
         crossorigin="anonymous">
         </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.6/angular.min.js"></script>
+    <script src="app.js"></script>
+    <script src="AddActivityCTRL.js"></script>
 </head>
 
-<body>
-    <div class="container">
+<body ng-app="Horarium" ng-controller="addActivityCtrl">
+    <div class="container" class="ng-cloak">
         <div class="row">
-            <div class="col-md-4 offset-md-4">
+            <div class="col-md-6 offset-md-3">
                 <h1 class="text-center display-3">Horarium</h1>
                 <div class="card">
                     <div class="card-body">
-                        <form>
+                        <form novalidate>
                             <div class="form-group">
                                 <h5>Activity</h5>
                                 <input type="text" class="form-control" id="activity" placeholder="Name of the activity">
                             </div>
                             <h5>Which days</h5>
-                            <div class="form-check">
-                                <label class="form-check-label">
-                                    <input class="form-check-input" type="checkbox" value=""> Monday
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <label class="form-check-label">
-                                    <input class="form-check-input" type="checkbox" value=""> Tuesday
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <label class="form-check-label">
-                                    <input class="form-check-input" type="checkbox" value=""> Wednesday
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <label class="form-check-label">
-                                    <input class="form-check-input" type="checkbox" value=""> Thursday
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <label class="form-check-label">
-                                    <input class="form-check-input" type="checkbox" value=""> Friday
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <label class="form-check-label">
-                                    <input class="form-check-input" type="checkbox" value=""> Saturday
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <label class="form-check-label">
-                                    <input class="form-check-input" type="checkbox" value=""> Sunday
-                                </label>
-                            </div>
-                            <h5>Interval</h5>
-                            <div class="row">
-                                <div class="form-group col-md-6">
-                                    <select class="form-control">
-                                        <option selected disabled>Hour</option>
-                                        <option>0</option>
-                                        <option>1</option>
-                                        <option>2</option>
-                                    </select>
+                                <div class="form-check">
+                                    <label class="form-check-label">
+                                        <input type="checkbox" class="form-check-input" ng-model="monday"/>
+                                        Monday
+                                    </label>
                                 </div>
-                                <div class="form-group col-md-6">
-                                    <select class="form-control">
-                                        <option selected disabled>Minute</option>
-                                        <option>0</option>
-                                        <option>1</option>
-                                        <option>2</option>
-                                    </select>
+                                <div class="row" ng-if="monday">
+                                    <div class="col-lg-3">
+                                        <div class="form-group">
+                                            <label>From:</label>
+                                            <input type="time" class="form-control" ng-class="classes.monday.from" ng-model="activity.monday.from"/>
+                                            <strong class="invalid-feedback">Invalid input</strong>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="form-group">
+                                            <label>To:</label>
+                                            <input type="time" class="form-control" ng-class="classes.monday.to" ng-model="activity.monday.to"/>
+                                            <strong class="invalid-feedback">Invalid input</strong>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="form-group">
+                                            <label>Min:</label>
+                                            <input type="time" class="form-control" ng-class="classes.monday.min" ng-model="activity.monday.min"/>
+                                            <strong class="invalid-feedback">Invalid input</strong>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="form-group">
+                                            <label>Max:</label>
+                                            <input type="time" class="form-control" ng-class="classes.monday.max" ng-model="activity.monday.max"/>
+                                            <strong class="invalid-feedback">Invalid input</strong>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                            <button type="submit" class="btn btn-success btn-block">Add</button>
+                                <div class="form-check">
+                                    <label class="form-check-label">
+                                        <input type="checkbox" class="form-check-input" ng-model="tuesday"/>
+                                        Tuesday
+                                    </label>
+                                </div>
+                                <div class="row" ng-if="tuesday">
+                                    <div class="col-lg-3">
+                                        <div class="form-group">
+                                            <label>From:</label>
+                                            <input type="time" class="form-control" ng-class="classes.tuesday.from" ng-model="activity.tuesday.from"/>
+                                            <strong class="invalid-feedback">Invalid input</strong>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="form-group">
+                                            <label>To:</label>
+                                            <input type="time" class="form-control" ng-class="classes.tuesday.to" ng-model="activity.tuesday.to"/>
+                                            <strong class="invalid-feedback">Invalid input</strong>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="form-group">
+                                            <label>Min:</label>
+                                            <input type="time" class="form-control" ng-class="classes.tuesday.min" ng-model="activity.tuesday.min"/>
+                                            <strong class="invalid-feedback">Invalid input</strong>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="form-group">
+                                            <label>Max:</label>
+                                            <input type="time" class="form-control" ng-class="classes.tuesday.max" ng-model="activity.tuesday.max"/>
+                                            <strong class="invalid-feedback">Invalid input</strong>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-check">
+                                    <label class="form-check-label">
+                                        <input type="checkbox" class="form-check-input" ng-model="wednesday"/>
+                                        Wednesday
+                                    </label>
+                                </div>
+                                <div class="row" ng-if="wednesday">
+                                    <div class="col-lg-3">
+                                        <div class="form-group">
+                                            <label>From:</label>
+                                            <input type="time" class="form-control" ng-class="classes.wednesday.from" ng-model="activity.wednesday.from"/>
+                                            <strong class="invalid-feedback">Invalid input</strong>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="form-group">
+                                            <label>To:</label>
+                                            <input type="time" class="form-control" ng-class="classes.wednesday.to" ng-model="activity.wednesday.to"/>
+                                            <strong class="invalid-feedback">Invalid input</strong>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="form-group">
+                                            <label>Min:</label>
+                                            <input type="time" class="form-control" ng-class="classes.wednesday.min" ng-model="activity.wednesday.min"/>
+                                            <strong class="invalid-feedback">Invalid input</strong>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="form-group">
+                                            <label>Max:</label>
+                                            <input type="time" class="form-control" ng-class="classes.wednesday.max" ng-model="activity.wednesday.max"/>
+                                            <strong class="invalid-feedback">Invalid input</strong>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-check">
+                                    <label class="form-check-label">
+                                        <input type="checkbox" class="form-check-input" ng-model="thursday"/>
+                                        Thursday
+                                    </label>
+                                </div>
+                                <div class="row" ng-if="thursday">
+                                    <div class="col-lg-3">
+                                        <div class="form-group">
+                                            <label>From:</label>
+                                            <input type="time" class="form-control" ng-class="classes.thursday.from" ng-model="activity.thursday.from"/>
+                                            <strong class="invalid-feedback">Invalid input</strong>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="form-group">
+                                            <label>To:</label>
+                                            <input type="time" class="form-control" ng-class="classes.thursday.to" ng-model="activity.thursday.to"/>
+                                            <strong class="invalid-feedback">Invalid input</strong>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="form-group">
+                                            <label>Min:</label>
+                                            <input type="time" class="form-control" ng-class="classes.thursday.min" ng-model="activity.thursday.min"/>
+                                            <strong class="invalid-feedback">Invalid input</strong>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="form-group">
+                                            <label>Max:</label>
+                                            <input type="time" class="form-control" ng-class="classes.thursday.max" ng-model="activity.thursday.max"/>
+                                            <strong class="invalid-feedback">Invalid input</strong>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-check">
+                                    <label class="form-check-label">
+                                        <input type="checkbox" class="form-check-input" ng-model="friday"/>
+                                        Friday
+                                    </label>
+                                </div>
+                                <div class="row" ng-if="friday">
+                                    <div class="col-lg-3">
+                                        <div class="form-group">
+                                            <label>From:</label>
+                                            <input type="time" class="form-control" ng-class="classes.friday.from" ng-model="activity.friday.from"/>
+                                            <strong class="invalid-feedback">Invalid input</strong>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="form-group">
+                                            <label>To:</label>
+                                            <input type="time" class="form-control" ng-class="classes.friday.to" ng-model="activity.friday.to"/>
+                                            <strong class="invalid-feedback">Invalid input</strong>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="form-group">
+                                            <label>Min:</label>
+                                            <input type="time" class="form-control" ng-class="classes.friday.min" ng-model="activity.friday.min"/>
+                                            <strong class="invalid-feedback">Invalid input</strong>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="form-group">
+                                            <label>Max:</label>
+                                            <input type="time" class="form-control" ng-class="classes.friday.max" ng-model="activity.friday.max"/>
+                                            <strong class="invalid-feedback">Invalid input</strong>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-check">
+                                    <label class="form-check-label">
+                                        <input type="checkbox" class="form-check-input" ng-model="saturday"/>
+                                        Saturday
+                                    </label>
+                                </div>
+                                <div class="row" ng-if="saturday">
+                                    <div class="col-lg-3">
+                                        <div class="form-group">
+                                            <label>From:</label>
+                                            <input type="time" class="form-control" ng-class="classes.saturday.from" ng-model="activity.saturday.from"/>
+                                            <strong class="invalid-feedback">Invalid input</strong>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="form-group">
+                                            <label>To:</label>
+                                            <input type="time" class="form-control" ng-class="classes.saturday.to" ng-model="activity.saturday.to"/>
+                                            <strong class="invalid-feedback">Invalid input</strong>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="form-group">
+                                            <label>Min:</label>
+                                            <input type="time" class="form-control" ng-class="classes.saturday.min" ng-model="activity.saturday.min"/>
+                                            <strong class="invalid-feedback">Invalid input</strong>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="form-group">
+                                            <label>Max:</label>
+                                            <input type="time" class="form-control" ng-class="classes.saturday.max" ng-model="activity.saturday.max"/>
+                                            <strong class="invalid-feedback">Invalid input</strong>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-check">
+                                    <label class="form-check-label">
+                                        <input type="checkbox" class="form-check-input" ng-model="sunday"/>
+                                        Sunday
+                                    </label>
+                                </div>
+                                <div class="row" ng-if="sunday">
+                                    <div class="col-lg-3">
+                                        <div class="form-group">
+                                            <label>From:</label>
+                                            <input type="time" class="form-control" ng-class="classes.sunday.from" ng-model="activity.sunday.from"/>
+                                            <strong class="invalid-feedback">Invalid input</strong>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="form-group">
+                                            <label>To:</label>
+                                            <input type="time" class="form-control" ng-class="classes.sunday.to" ng-model="activity.sunday.to"/>
+                                            <strong class="invalid-feedback">Invalid input</strong>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="form-group">
+                                            <label>Min:</label>
+                                            <input type="time" class="form-control" ng-class="classes.sunday.min" ng-model="activity.sunday.min"/>
+                                            <strong class="invalid-feedback">Invalid input</strong>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="form-group">
+                                            <label>Max:</label>
+                                            <input type="time" class="form-control" ng-class="classes.sunday.max" ng-model="activity.sunday.max"/>
+                                            <strong class="invalid-feedback">Invalid input</strong>
+                                        </div>
+                                    </div>
+                                </div>
+                            <button type="submit" class="btn btn-success btn-block" ng-click="submit()">Add</button>
                         </form>
                     </div>
                 </div>
