@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {
 	"id": {},
 	"result": {
@@ -25,4 +26,33 @@
 			}
 		]
 	}
+=======
+{
+	"id": {},
+	"result": {
+	"categories": [
+			{
+			"name": "foci", 
+			"time": [
+				--GENERATED--
+				] 
+			},{
+			"name": "zongora", 
+			"time": [
+				--GENERATED--
+				]
+			},{
+			"name": "munka", 
+			"time": [
+				--GENERATED--
+				]
+			},{
+			"name": "alvás", 
+			"time": [
+				--GENERATED--
+				]
+			}
+		]
+	}
+>>>>>>> branch 'master' of https://github.com/XyroHUN/rft.git
 }
