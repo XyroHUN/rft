@@ -2,76 +2,55 @@ import java.util.Vector;
 
 public class EvolutionEngine {
 
+	public EvolutionEngine(String fitnessRules, int populationSize, int genomeSize, String alphabet, int maxCycle) {
+		this.fitnessRules = fitnessRules;
+		this.maxCycle = maxCycle;
 
-  public EvolutionEngine(int populationSize, int genomeSize, String alphabet, int maxCycle) {
-    this.maxCycle = maxCycle;
-    this.populationSize = populationSize;
-    this.genomeSize=genomeSize;
-    this.alphabet=alphabet;
-    
-    averageFitness = new Vector<>();
-    peakFitness = new Vector<>();
-    
-    e = new Environment(populationSize, genomeSize, alphabet); 
-    p = new Population(e);
-    p.genesis();
-  }
+		averageFitness = new Vector<>();
+		peakFitness = new Vector<>();
+		
+		this.e = new Environment(fitnessRules, populationSize, genomeSize, alphabet);
 
+	}
 
-  private Environment e;
-  private Population p;
-  private int maxCycle;
-  private Vector<Integer> averageFitness;
-  private Vector<Integer> peakFitness;
-  private String allTimeFittestGenome;
-  private int allTimePeakFitness;
-  private int populationSize;
-  private int genomeSize;
-private String alphabet;
+	private String fitnessRules;
+	private Environment e;
+	private Population p;
+	private int maxCycle;
+	private Vector<Integer> averageFitness;
+	private Vector<Integer> peakFitness;
 
+	public void evolution() {
 
-  
-  public void evolution() {
+		averageFitness.clear();
+		peakFitness.clear();
 
-	  
-	  
-    for (int currentCycle = 0; currentCycle < maxCycle; currentCycle++) {
+		p = new Population(e);
+		p.genesis();
 
-      averageFitness.add(p.getavarageFitness());
-      peakFitness.add(p.getPeakFitness());
-      p.evolve();
-      p.mutate();
-    }
+		for (int currentCycle = 0; currentCycle < maxCycle; currentCycle++) {
 
-    allTimeFittestGenome = p.getAllTimePeakGenome();
-    allTimePeakFitness = p.getAllTimePeakFitness();
-    
-    //clean up for next run
-    
-	averageFitness.clear();
-	peakFitness.clear();
-	
-	e = new Environment(populationSize, genomeSize, alphabet); 
-    p = new Population(e);
-    p.genesis();
-  }
+			averageFitness.add(p.getavarageFitness());
+			peakFitness.add(p.getPeakFitness());
+			p.evolve();
+			p.mutate();
+		}
 
- 
-  public Vector<Integer> getAverageFitness() {
-    return averageFitness;
-  }
+	}
 
- 
-  public Vector<Integer> getPeakFitness() {
-    return peakFitness;
-  }
+	public Vector<Integer> getAverageFitness() {
+		return averageFitness;
+	}
 
-  public String getAllTimeFittestGenome() {
-    return allTimeFittestGenome;
-  }
+	public Vector<Integer> getPeakFitness() {
+		return peakFitness;
+	}
 
- 
-  public int getAllTimePeakFitness() {
-    return allTimePeakFitness;
-  }
+	public String getAllTimeFittestGenome() {
+		return p.getAllTimePeakGenome();
+	}
+
+	public int getAllTimePeakFitness() {
+		return p.getAllTimePeakFitness();
+	}
 }

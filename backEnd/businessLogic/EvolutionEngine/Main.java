@@ -5,7 +5,10 @@ public class Main {
 	public static void main(String[] args) {
 
 		
-		EvolutionEngine ee = new EvolutionEngine(100, 12,ALPHABET, 1000);
+		EvolutionEngine ee = new EvolutionEngine("", 100, 12,ALPHABET, 1000);
+		
+		ee.evolution();
+		System.out.println(ee.getAllTimeFittestGenome());
 		
 		ee.evolution();
 		System.out.println(ee.getAllTimeFittestGenome());
