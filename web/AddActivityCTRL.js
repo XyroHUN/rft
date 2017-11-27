@@ -89,6 +89,20 @@ app.controller('addActivityCtrl', function($scope) {
         },
     }
 
+    $scope.class = {
+        'week' : {
+            'min' :'',
+            'max' :''
+        }
+    }
+    $scope.activit = {
+        
+        'week' : {
+            'min':0,
+            'max':0
+        }
+    }
+
     $scope.submit = function () {
         validateActivity();
     }
@@ -106,6 +120,11 @@ app.controller('addActivityCtrl', function($scope) {
         } 
 
     }
+    validateWeek = function(week, klass, days) {
+        if (week.min>week.max) {
+            klass.min = 'is-invalid';
+        }
+    }
     validateActivity = function () {
         var monday = $scope.activity.monday;
         var tuesday = $scope.activity.tuesday;
@@ -121,6 +140,7 @@ app.controller('addActivityCtrl', function($scope) {
         validateDay(friday, $scope.classes.friday);
         validateDay(saturday, $scope.classes.saturday);
         validateDay(sunday, $scope.classes.sunday);
+        validateWeek($scope.activit.week, $scope.class.week, $scope.activity)
     }
     
 

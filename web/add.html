@@ -284,6 +284,19 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="row">
+                                    <div class="col-lg-5">
+                                        <label><strong>Minimum hány alkalommal a héten</strong></label>
+                                        <input type="number" class="form-control" ng-class="class.week.min" ng-model="activit.week.min"  placeholder="Minimum" min="0" oninput="this.value = Math.abs(this.value)">
+                                        <strong class="invalid-feedback">Invalid input</strong>
+                                    </div>
+                                    <div class="col-lg-5">
+                                            <label><strong>Maximum hány alkalommal a héten</strong></label>
+                                        <input type="number" class="form-control" ng-class="class.week.max" ng-model="activit.week.max" placeholder="Maximum" min="0" oninput="this.value = Math.abs(this.value)" max="$('.form-check-input:checked').length">
+                                        <strong class="invalid-feedback">Invalid input</strong>
+                                    </div>
+                                </div>
+                                <br>
                             <button type="submit" class="btn btn-success btn-block" ng-click="submit()">Add</button>
                         </form>
                     </div>
