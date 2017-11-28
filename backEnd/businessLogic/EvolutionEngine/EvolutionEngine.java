@@ -2,18 +2,17 @@ import java.util.Vector;
 
 public class EvolutionEngine {
 
-	public EvolutionEngine(String fitnessRules, int populationSize, int genomeSize, String alphabet, int maxCycle) {
-		this.fitnessRules = fitnessRules;
+	public EvolutionEngine(Categories categories, int maxCycle, int populationSize) {
+		
 		this.maxCycle = maxCycle;
 
 		averageFitness = new Vector<>();
 		peakFitness = new Vector<>();
 		
-		this.e = new Environment(fitnessRules, populationSize, genomeSize, alphabet);
+		this.e = new Environment(categories, populationSize);
 
 	}
 
-	private String fitnessRules;
 	private Environment e;
 	private Population p;
 	private int maxCycle;
@@ -26,14 +25,16 @@ public class EvolutionEngine {
 		peakFitness.clear();
 
 		p = new Population(e);
+
 		p.genesis();
 
-		for (int currentCycle = 0; currentCycle < maxCycle; currentCycle++) {
 
+		for (int currentCycle = 0; currentCycle < maxCycle; currentCycle++) {
 			averageFitness.add(p.getavarageFitness());
 			peakFitness.add(p.getPeakFitness());
 			p.evolve();
 			p.mutate();
+			
 		}
 
 	}

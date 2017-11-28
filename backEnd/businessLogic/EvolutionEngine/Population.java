@@ -26,17 +26,17 @@ public class Population {
 	public void evolve() {
 
 		Vector<Unit> nextGeneration = new Vector<>();
-		Unit u1, u2;
+	//	Unit u1, u2;
 
 		for (int i = 0; i < e.getPopulationSize(); i++) {
-
+/*
 			u1 = rouletteWheelSelection();
 			u2 = rouletteWheelSelection();
 			while (u1.equals(u2)) {
 				u2 = rouletteWheelSelection();
 			}
-
-			nextGeneration.add(new Unit(e, u1, u2));
+*/
+			nextGeneration.add(new Unit(e, rouletteWheelSelection(), rouletteWheelSelection())); //osztódás lehet
 		}
 
 		units.clear();
@@ -51,7 +51,7 @@ public class Population {
 			return randomSelection();
 
 		else {
-
+			
 			int rand = new Random().nextInt(populationFitness);
 			int i = 0;
 			int counter = units.elementAt(i).getFitness();
@@ -76,8 +76,12 @@ public class Population {
 	}
 
 	public void genesis() {
+
 		for (int i = 0; i < e.getPopulationSize(); i++)
-			units.add(new Unit(e));		
+			
+			units.add(new Unit(e));	
+		
+
 		update();
 	}
 
@@ -96,7 +100,7 @@ public class Population {
 	private void updateAllTimePeakGenome() {
 		if (allTimePeakGenome == null)
 			allTimePeakGenome = getPeakGenome();
-		if (e.fitness(allTimePeakGenome) < e.fitness(getPeakGenome()))
+		else if (e.fitness(allTimePeakGenome) < e.fitness(getPeakGenome()))
 			allTimePeakGenome = getPeakGenome();
 	}
 

@@ -2,21 +2,18 @@ import java.util.Random;
 
 public class Environment {
 
-	// public int fitness();
-
 	private int populationSize;
-	private int genomeSize;
 	private String alphabet;
-	private final int unitMutationRate = 8;
-	private final int geneMutationRate = 2;
-	private String fitnessRules;
-	
-	public Environment(String fitnessRules, int populationSize, int genomeSize, String alphabet) {
+	private final int unitMutationRate = 50;
+	private final int geneMutationRate = 30;
+	private final int genomeSize = 168;
+	private Categories categories;
 
-		this.fitnessRules = fitnessRules;
+	public Environment(Categories categories, int populationSize) {
+
+		this.categories = categories;
 		this.populationSize = populationSize;
-		this.genomeSize = genomeSize;
-		this.alphabet = alphabet;
+		this.alphabet = categories.getAlphabet();
 	}
 
 	public int getPopulationSize() {
@@ -31,8 +28,6 @@ public class Environment {
 		return alphabet;
 	}
 
-	
-	
 	public int getUnitMutationRate() {
 		return unitMutationRate;
 	}
@@ -41,49 +36,53 @@ public class Environment {
 		return geneMutationRate;
 	}
 
-	public String generateGenome() {
-
-		Random rand = new Random();
-		String s = "";
-		for (int i = 0; i < genomeSize; i++)
-			s += alphabet.charAt(rand.nextInt(alphabet.length()));
-
-		return s;
+	private String applyBlanks(String genome) {
+		
+		if(categories.getBlanks() == null) return genome;
+		
+		else {
+		
+		String blanked = "";
+		
+		for(int i = 0;i < genomeSize; i++) {
+			blanked += categories.getBlanks().contains(i) ? 'Z' : genome.charAt(i); 
+		}
+		
+		return blanked;
+		}
 	}
 
-	public int fitness(String genome) { 
-		// 0 is a no match, 100 is a perfect
-		// hardwired for crossover - unit constructor(100%) if changed here should be changed there too
-		// match - peakUnit
+	public String generateGenome() {
 
-		/*
-		blank alkalmazása rá / algortmus belerakja
-		jó idõben - 1 pont
-		szakaszok darabszáma - minimum - 1 pont
-		szakaszok darabszáma - maximum - 1 pont
-		szakaszok hossza - minimum/maximum 1-1 pont
-		átcsszás naponta/hetente
-		több szakasz, több pont?
-		*/
+		String s = "";
+		for (int i = 0; i < genomeSize; i++)
+			s += categories.getCategory(i);
 		
+		return applyBlanks(s);
+	}
+	
+
+	public int fitness(String genome) {
+	
 		int genomeFitness = 0;
-		String drive = "Hello World!";
-		
-
-			if (genome.equals(drive))
-				genomeFitness = 100;
-			else {
-
-				int geneFitness = Math.round(100 / genomeSize); //optimalized
-
-				for (int i = 0; i < genome.length(); i++) {
-					genomeFitness += genome.charAt(i) == drive.charAt(i) ? geneFitness : 0;
-				}
-
-			}
+		for (int i = 0; i < genome.length(); i++)  
+			if(categories.feasible(genome.charAt(i), i)) genomeFitness++;
+			
 		
 		return genomeFitness;
+	}
 
+	public String mutateGenome(Unit u) {
+
+		Random rand = new Random();
+		String genome = "";
+
+		for (int i = 0; i < genomeSize; i++) {
+			genome += rand.nextInt(100) < geneMutationRate ? categories.getCategory(i)
+					: u.getGenome().charAt(i);
+		}
+
+		return applyBlanks(genome);
 	}
 
 }

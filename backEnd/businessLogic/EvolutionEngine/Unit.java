@@ -9,6 +9,7 @@ public class Unit {
 		String genome = e.generateGenome();
 		this.genome = genome;
 		this.fitness = e.fitness(genome);
+		
 	}
 
 	public Unit(Environment e, Unit u1, Unit u2) { // crossOver
@@ -27,9 +28,15 @@ public class Unit {
 
 		String s = "";
 		int chance = better.getFitness();
+		String betterGenome = better.getGenome();
+		String worseGenome = worse.getGenome();
 
 		for (int i = 0; i < e.getGenomeSize(); i++)
-			s += rand.nextInt(100) <= chance ? better.getGenome().charAt(i) : worse.getGenome().charAt(i);
+			s += betterGenome.charAt(i) == worseGenome.charAt(i) 
+					? betterGenome.charAt(i) 
+					: rand.nextInt(100) <= chance 
+						? betterGenome.charAt(i) 
+						: worseGenome.charAt(i);
 
 		this.genome = s;
 		this.fitness = e.fitness(s);
@@ -40,19 +47,16 @@ public class Unit {
 
 		Random rand = new Random();
 		if (rand.nextInt(100) < e.getUnitMutationRate()) {
-			String genome = "";
-			for (int i = 0; i < e.getGenomeSize(); i++) {
-				genome += rand.nextInt(100) < e.getGeneMutationRate()
-						? e.getAlphabet().charAt(rand.nextInt(e.getAlphabet().length())) : u.getGenome().charAt(i);
-			}
-
+			
+			String genome = e.mutateGenome(u);
+			
 			this.genome = genome;
 			this.fitness = e.fitness(genome);
 		}
 
 		else
 			this.genome = u.getGenome();
-		this.fitness = u.getFitness();
+			this.fitness = u.getFitness();
 	}
 
 	public String getGenome() {
