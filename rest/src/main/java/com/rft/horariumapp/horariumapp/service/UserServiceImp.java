@@ -16,7 +16,7 @@ public class UserServiceImp implements UserService{
 
 	@Autowired
 	private UserRepository userRepository;
-	
+
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 	
@@ -33,6 +33,7 @@ public class UserServiceImp implements UserService{
 	@Override
 	public void saveUser(User user) {
 		user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        user.setActive(1);
 		userRepository.save(user);
 	}
 

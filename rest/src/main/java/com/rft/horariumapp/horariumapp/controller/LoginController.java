@@ -7,7 +7,8 @@ import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.BindingResult;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,14 +26,7 @@ public class LoginController {
 
 	private final Logger logger = LoggerFactory.getLogger(LoginController.class);
 	
-	@RequestMapping(value="/", method = RequestMethod.GET)
-	public String login(){
-		//ModelAndView modelAndView = new ModelAndView();
-		//modelAndView.setViewName("login");
-		return "hello";
-	}
-	
-	@RequestMapping(value="/all", method = RequestMethod.GET)
+	@RequestMapping(value="/user/all", method = RequestMethod.GET)
 	public List<User> getAll(){
 		List<User> userExists = userService.findAll();
 		return userExists;
@@ -40,7 +34,7 @@ public class LoginController {
 	
 	
 	@RequestMapping(value = "/registration", method = RequestMethod.POST)
-	public void createNewUser(@Valid User user, BindingResult bindingResult) {
+	public void createNewUser(@Valid User user) {
 		User userExists = userService.findUserByEmail(user.getEmail());
 		if(userExists != null) {	
 			logger.info("email already in use");
@@ -49,5 +43,13 @@ public class LoginController {
 			logger.info("user saved");
 		}
 	}
+	
+	@RequestMapping(value="/user/home", method = RequestMethod.GET)
+	public String home(){
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		User user = userService.findUserByEmail(auth.getName());
+		return "Welcome " + " " + user.getEmail();
+	}
+	
 	
 }
