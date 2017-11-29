@@ -1,3 +1,5 @@
+package java.bean;
+
 import java.util.Vector;
 
 public class EvolutionEngine {
