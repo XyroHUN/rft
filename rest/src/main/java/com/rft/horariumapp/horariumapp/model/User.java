@@ -1,56 +1,55 @@
 package com.rft.horariumapp.horariumapp.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import java.util.Collection;
+import java.util.List;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
-import org.springframework.data.annotation.Transient;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
-@Entity
-@Table(name = "user")
-public class User {
+@Document(collection = "Users")
+public class User implements UserDetails{
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "user_id")
-	private int id;
-	@Column(name = "email")
+	private String id;
+	
 	@Email(message = "*Please provide a valid Email")
 	@NotEmpty(message = "*Please provide an email")
 	private String email;
-	@Column(name = "password")
+
 	@Length(min = 5, message = "*Your password must have at least 5 characters")
 	@NotEmpty(message = "*Please provide your password")
-	@Transient
 	private String password;
-	@Column(name = "active")
-	private int active;
-	/*@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinTable(name = "user_task", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "task_id"))
-	private Set<Task> tasks;
-*/
 
-	public User(String email, String password, int active) {
-		this.email = email;
-		this.password = password;
-		this.active = active;
-	}
-
+	private List<Task> tasks;
+	
 	public User() {
 	
 	}
 
-	public int getId() {
+	public User(String email, String password) {
+		super();
+		this.email = email;
+		this.password = password;
+	}
+
+	public User(String id, String email, String password, List<Task> tasks) {
+		super();
+		this.id = id;
+		this.email = email;
+		this.password = password;
+		this.tasks = tasks;
+	}
+
+	public String getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
@@ -70,12 +69,45 @@ public class User {
 		this.email = email;
 	}
 
-	public int getActive() {
-		return active;
+
+	public List<Task> getTasks() {
+		return tasks;
 	}
 
-	public void setActive(int active) {
-		this.active = active;
+
+	public void setTasks(List<Task> tasks) {
+		this.tasks = tasks;
+	}
+
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getUsername() {
+		return email;
+	}
+
+	@Override
+	public boolean isAccountNonExpired() {
+		return true;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		return true;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		return true;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		return true;
 	}
 
 }

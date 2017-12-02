@@ -1,31 +1,46 @@
 package com.rft.horariumapp.horariumapp.model;
 
+import java.util.List;
+
 public class Task {
 	
-	private int taskId;
-	
-	private String taskName;
+	public String name;
+	public List<Time> time;
+	public List<Integer> rules;
 	
 	public Task() {
 		
 	}
-
-	public int getTaskId() {
-		return taskId;
-	}
-
-	public void setTaskId(int taskId) {
-		this.taskId = taskId;
-	}
-
-	public String getTaskName() {
-		return taskName;
-	}
-
-	public void setTaskName(String taskName) {
-		this.taskName = taskName;
-	}
 	
-	
+	public Task(String name, List<Time> time, List<Integer> rules) {
+		super();
+		this.name = name;
+		this.time = time;
+		this.rules = rules;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public List<Time> getTime() {
+		return time;
+	}
+
+	public void setTime(List<Time> time) {
+		this.time = time;
+	}
+
+	public List<Integer> getRules() {
+		return rules;
+	}
+
+	public void setRules(List<Integer> rules) {
+		this.rules = rules;
+	}
 	
 }
