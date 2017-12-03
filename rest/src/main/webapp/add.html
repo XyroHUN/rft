@@ -1,0 +1,57 @@
+<form>
+    <div class="form-group">
+        <h5>Tevékenység neve</h5>
+        <input type="text" class="form-control" id="activity" placeholder="Name of the activity" ng-model="activityName" ng-class="activityNameError">
+        <strong class="invalid-feedback">Érvénytelen adat</strong>
+    </div>
+    <h5>Mely napokon érsz rá</h5>
+    <div ng-repeat="(key, day) in weekDays">
+        <input type="checkbox" ng-model="day.opened"/> {{key}}
+            <div class="row" ng-if="day.opened">
+                <div class="col-lg-3">
+                    <div class="form-group">
+                        <label>Mettől:</label>
+                        <input type="time" class="form-control" ng-class="day.fromError" ng-model="day.from"/>
+                        <strong class="invalid-feedback">Érvénytelen adat</strong>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="form-group">
+                        <label>Meddig:</label>
+                        <input type="time" class="form-control" ng-class="day.toError" ng-model="day.to"/>
+                        <strong class="invalid-feedback">Érvénytelen adat</strong>
+                    </div>
+                </div>
+            </div>                                    
+        </div>
+        <div class="row">
+            <div class="col-lg-5">
+                <label><strong>Minimum hány alkalommal a héten</strong></label>
+                <input type="number" class="form-control" ng-class="week.minAlkalomError" ng-model="week.minAlkalom"  placeholder="Minimum" min="0"  max="168" oninput="this.value = Math.abs(this.value)">
+                <strong class="invalid-feedback">Érvénytelen adat</strong>
+            </div>
+            <div class="col-lg-5">
+                    <label><strong>Maximum hány alkalommal a héten</strong></label>
+                <input type="number" class="form-control" ng-class="week.maxAlkalomError" ng-model="week.maxAlkalom" placeholder="Maximum" min="0"  max="168" oninput="this.value = Math.abs(this.value)">
+                <strong class="invalid-feedback">Érvénytelen adat</strong>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-5">
+                <div class="form-group">
+                    <label><strong>Minimum hány órát a héten</strong></label>
+                    <input type="number" class="form-control" ng-class="week.minOraError" ng-model="week.minOra"  placeholder="Minimum" min="0" max="168" oninput="this.value = Math.abs(this.value)"/>
+                    <strong class="invalid-feedback">Érvénytelen adat</strong>
+                </div>
+            </div>
+            <div class="col-lg-5">
+                <div class="form-group">
+                    <label><strong>Maximum hány órát a héten</strong></label>
+                    <input type="number" class="form-control" ng-class="week.maxOraError" ng-model="week.maxOra" placeholder="Maximum" min="0"  max="168" oninput="this.value = Math.abs(this.value)"/>
+                    <strong class="invalid-feedback">Érvénytelen adat</strong>
+                </div>
+            </div>
+        </div>
+        <br>
+    <button type="submit" class="btn btn-success btn-block" ng-click="submit()">Hozzáadás</button>
+</form>
