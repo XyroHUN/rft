@@ -9,9 +9,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.rft.horariumapp.horariumapp.model.Task;
 import com.rft.horariumapp.horariumapp.model.Time;
@@ -27,19 +29,8 @@ public class LoginController {
 
 	private final Logger logger = LoggerFactory.getLogger(LoginController.class);
 	
-	@RequestMapping(value= "/login", method = RequestMethod.GET)
-	public void login(){
-		logger.info("login");
-	}
-	
-	@RequestMapping(value="/user/all", method = RequestMethod.GET)
-	public List<User> getAll(){
-		List<User> userExists = userService.findAll();
-		return userExists;
-	}
-	
 	@RequestMapping(value = "/registration", method = RequestMethod.POST)
-	public void createNewUser(@Valid User user) {
+	public void regUser(@RequestBody @Valid User user) {
 		User userExists = userService.findUserByEmail(user.getEmail());
 		if(userExists != null) {	
 			logger.info("email already in use");
@@ -47,6 +38,13 @@ public class LoginController {
 			userService.saveUser(user);
 			logger.info("user saved");
 		}
+	}
+	
+	
+	@RequestMapping(value="/user/all", method = RequestMethod.GET)
+	public List<User> getAll(){
+		List<User> userExists = userService.findAll();
+		return userExists;
 	}
 	
 	@RequestMapping(value="/user/home", method = RequestMethod.GET)
