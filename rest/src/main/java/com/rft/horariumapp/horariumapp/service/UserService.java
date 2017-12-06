@@ -9,6 +9,5 @@ import com.rft.horariumapp.horariumapp.model.User;
 public interface UserService {
 	public User findUserByEmail(String email);
 	public void saveUser(User user);
-	public void saveTask(User user, Task task, Time time);
 	public List<User> findAll();
 }

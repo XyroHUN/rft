@@ -11,7 +11,7 @@ public class Task {
 	public Task() {
 		
 	}
-	
+
 	public Task(String name, List<Time> time, List<Integer> rules) {
 		super();
 		this.name = name;
@@ -41,6 +41,11 @@ public class Task {
 
 	public void setRules(List<Integer> rules) {
 		this.rules = rules;
+	}
+
+	@Override
+	public String toString() {
+		return "Task [name=" + name + ", time=" + time + ", rules=" + rules + "]";
 	}
 	
 }

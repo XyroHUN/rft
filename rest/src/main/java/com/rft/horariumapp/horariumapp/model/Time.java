@@ -29,4 +29,9 @@ public class Time {
 		this.hours = hours;
 	}
 
+	@Override
+	public String toString() {
+		return "Time [day=" + day + ", hours=" + hours + "]";
+	}
+
 }
