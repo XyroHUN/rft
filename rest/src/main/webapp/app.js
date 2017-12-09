@@ -11,9 +11,14 @@ var app = angular.module('Horarium', ['ngRoute']).config(function ($sceProvider)
             controller: 'addActivityCtrl'
         })
         .when('/register', {
-            templateUrl: 'register.html'
+            templateUrl: 'register.html',
+            controller: 'registerCtrl'
+        })
+        .when('/error', {
+            templateUrl: 'myerror.html'
         })
         .otherwise({
-            templateUrl : 'login.html'
+            templateUrl : 'login.html',
+            controller: 'loginCtrl'
         });
 });

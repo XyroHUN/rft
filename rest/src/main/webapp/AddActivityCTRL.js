@@ -1,4 +1,4 @@
-app.controller('addActivityCtrl', function($scope, $http) {
+app.controller('addActivityCtrl', function($scope, $http, $location) {
     $scope.activityName = '';
     $scope.activityNameError = '';
 
@@ -58,11 +58,11 @@ app.controller('addActivityCtrl', function($scope, $http) {
             'minOra':0,
             'maxOra':0
         }
-    }
+    };
 
-    var valid
+    var valid;
     $scope.submit = function () {
-        clearErrors()
+        clearErrors();
         valid = true;
         validateActivity();
         if (valid) {
@@ -84,8 +84,10 @@ app.controller('addActivityCtrl', function($scope, $http) {
                 'name' : $scope.activityName,
                 'time' : thedays,
                 'rules' : [$scope.week.minAlkalom, $scope.week.maxAlkalom, $scope.week.minOra, $scope.week.maxOra]
-            }
-            $http.post('http://localhost:8080/rest/activity',content)
+            };
+            $http.post('http://localhost:8080/rest/activity',content).then(function () {
+                $location.path("/activity");
+            });
         }
     }
     validateDay = function(day) {
@@ -93,18 +95,7 @@ app.controller('addActivityCtrl', function($scope, $http) {
             day.fromError = 'is-invalid';
             valid = false;
         }
-        /*if (day.min > day.max) {
-            day.minError ='is-invalid';
-            valid = false;
-        }
-        if (day.max.getHours() > day.to.getHours()-day.from.getHours() ||
-         (day.max.getHours() == day.to.getHours()-day.from.getHours() &&
-          day.max.getMinutes() > day.to.getMinutes()-day.from.getMinutes() ) ) {
-            day.maxError = 'is-invalid';
-            valid = false;
-        } */
-
-    }   
+    };
     validateWeek = function(week) {
         if (week.minAlkalom>week.maxAlkalom) {
             week.minAlkalomError = 'is-invalid';
@@ -114,7 +105,7 @@ app.controller('addActivityCtrl', function($scope, $http) {
             week.minOraError ='is-invalid';
             valid = false;
         }
-    }
+    };
     validateActivity = function () {
         if ($scope.activityName === '') {
             valid = false
@@ -127,7 +118,7 @@ app.controller('addActivityCtrl', function($scope, $http) {
             }
         }
         validateWeek($scope.week);
-    }
+    };
     clearErrors = function() {
         
         for (day in $scope.weekDays) { 

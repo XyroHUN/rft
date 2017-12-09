@@ -1,9 +1,11 @@
 package com.rft.horariumapp.horariumapp.repository;
 
-import org.springframework.data.mongodb.repository.MongoRepository;
-
 import com.rft.horariumapp.horariumapp.model.User;
+import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.stereotype.Repository;
 
-public interface UserRepository extends MongoRepository<User, String> {
-	public User findByEmail(String email);
+@Repository
+public interface UserRepository extends MongoRepository<User, String>{
+    Boolean existsUserByEmail(String email);
+    User findUserByEmail(String email);
 }
