@@ -17,7 +17,7 @@ public class ActivityController {
     private ActivityService activityService;
 
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<List<Activity>> listActivity() {
+    public ResponseEntity<List<Activity>> listActivities() {
         return new ResponseEntity<>(activityService.listActivities(), HttpStatus.OK);
     }
 

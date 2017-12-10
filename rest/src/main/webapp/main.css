@@ -4,7 +4,7 @@ html body {
 body .card {
     border: none;
 }
-.card-body {
+.main-card {
     background-color: #ffa07a;
     
 }

@@ -12,6 +12,5 @@ app.controller('activityCtrl', function($scope, $http) {
             updateData()
         });
     };
-
     updateData();
 });

@@ -14,6 +14,7 @@ public class Activity {
 	@Id
 	private String id;
 
+	private String ownerEmail;
 	private String name;
 	private List<Time> time;
 	private List<Integer> rules;

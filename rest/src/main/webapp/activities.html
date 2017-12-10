@@ -1,26 +1,19 @@
 <h3 class="text-center display-5">{{title}}</h3>
-<table class="table table-striped">
-    <thead>
-        <tr>
-        <th scope="col">#</th>
-        <th scope="col">Activity name</th>
-        <th scope="col">Interval</th>
-        <th scope="col">Day</th>
-        <th scope="col">action</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr ng-repeat="act in data">
-        <td>{{act.name}}</td>
-        <td>{{act.time}}</td>
-        <td>{{act.rules}}</td>
-        <td>
-            <span ng-repeat="day in act.days">{{day}} </span>
-        </td>
-        <td><i class="fa fa-pencil fa-fw"></i><i class="fa fa-trash fa-fw" ng-click="remove(act.id)"></i></td>
-        </tr>
-    </tbody>
-</table>
-<a href="#!activity/add">
-    <i class="fa fa-plus fa-fw"></i>
-</a>
+<div class="card bg-secondary my-2" ng-repeat="act in data">
+    <div class="card-body">
+        <h4 class="card-title">{{act.name}}</h4>
+        <p class="card-text"><div class="" ng-repeat="days in act.time">{{days.day}} {{days.hours[0]}} - {{days.hours[days.hours.length-1]+1}}  </div></p>
+        <p></p>
+        <i class="fa fa-trash fa-fw" ng-click="remove(act.id)"></i>
+    </div>
+</div>
+<div>
+    <a href="#!activity/add">
+        <i class="fa fa-plus fa-fw"></i>
+    </a>
+</div>
+<div>
+    <a href="">
+        <button type="submit" class="btn btn-success btn-block" ng-click="generate()">Generate</button>
+    </a>
+</div>

@@ -13,9 +13,12 @@ public class ActivityServiceImpl implements ActivityService {
     @Autowired
     private ActivityRepository activityRepository;
 
+    @Autowired
+    private UserService userService;
+
     @Override
     public List<Activity> listActivities() {
-        return activityRepository.findAll();
+        return activityRepository.findActivitiesByOwnerEmail(userService.getCurrentUserEmail());
     }
 
     @Override
@@ -25,6 +28,7 @@ public class ActivityServiceImpl implements ActivityService {
 
     @Override
     public void addActivity(Activity activity) {
+        activity.setOwnerEmail(userService.getCurrentUserEmail());
         activityRepository.insert(activity);
     }
 }
