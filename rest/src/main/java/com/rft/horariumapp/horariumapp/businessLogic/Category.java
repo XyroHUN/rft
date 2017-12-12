@@ -1,4 +1,4 @@
-package bean;
+package com.rft.horariumapp.horariumapp.businessLogic;
 
 import java.util.Vector;
 

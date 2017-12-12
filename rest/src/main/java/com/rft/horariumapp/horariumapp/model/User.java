@@ -56,4 +56,15 @@ public class User implements UserDetails{
     public boolean isEnabled() {
         return true;
     }
+
+	public String getEmail() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getPassword() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
