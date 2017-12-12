@@ -1,4 +1,4 @@
-app.controller('activityCtrl', function($scope, $http) {
+app.controller('activityCtrl', function($scope, $http, $location) {
     $scope.title = "Activities";
     $scope.data = null;
 
@@ -12,5 +12,8 @@ app.controller('activityCtrl', function($scope, $http) {
             updateData()
         });
     };
+    $scope.generate = function() {
+        $location.path("/myday")
+    }
     updateData();
 });

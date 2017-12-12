@@ -18,9 +18,5 @@ public class Activity {
 	private String name;
 	private List<Time> time;
 	private List<Integer> rules;
-	public void setOwnerEmail(String currentUserEmail) {
-		// TODO Auto-generated method stub
-		
-	}
 
 }
