@@ -49,7 +49,6 @@ public class Environment {
 				
 		genome = genome.replace( " ", "");
 		
-		//mindugyanaz a karakter - végtelen
 		if(genome.length()>0)
 		while(genome.charAt(0)==genome.charAt(genome.length()-1)) {
 			genome = genome.charAt(0) + genome.substring(0, genome.length()-1);
@@ -59,10 +58,6 @@ public class Environment {
 		String geneSequence = genome.substring(0,1);
 						
 		for(int i = 1; i< genome.length(); i++) {
-		
-			
-			
-		
 				if(genome.charAt(i)==geneSequence.charAt(geneSequence.length()-1)) {
 				
 					geneSequence += genome.charAt(i); 
@@ -72,8 +67,6 @@ public class Environment {
 					gg.addGroup(geneSequence);
 					geneSequence = "" + genome.charAt(i); 
 				}
-			
-				
 		}
 		gg.addGroup(geneSequence);
 		return gg;
@@ -98,7 +91,6 @@ public class Environment {
 		int hourlyCount = 0;
 		
 		GroupedGenome gg = groupingGenome(genome);
-		//gg.toString();
 		
 		for (int i = 0; i < genome.length(); i++)  
 			if(categories.feasible(genome.charAt(i), i)) feasible++;

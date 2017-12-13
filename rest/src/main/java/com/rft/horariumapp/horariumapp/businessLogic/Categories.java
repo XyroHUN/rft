@@ -12,7 +12,6 @@ public class Categories {
 
 	private int categoryCount;
 	private Vector<Category> categories;
-//	private Vector<Integer> blanks;
 	
 	
  public int getCategoryCount() {
@@ -40,14 +39,17 @@ public class Categories {
 	
 	public boolean feasible(char token, int hour) {
 				
-	//	if (token=='Z') return true;
-	//	else {
-		
-			
+
 			for(Category category : categories) if(category.getToken() == token) return category.getHours().contains(hour);
 		
-			return false; //' ' nincs pontozva, passz
-//		}
+			return false; 
+
+	}
+	
+	public String getCategoryName(char token) {
+		for(Category category : categories) if(category.getToken() == token) return category.getName();
+		return "";		
+		
 	}
 	
 	public boolean weeklyOptimal(char token, int weekly)
@@ -96,17 +98,4 @@ public class Categories {
 	public String getAlphabet() {
 		return new String(Arrays.copyOfRange(ALPHABET, 0, categoryCount));
 	}
-
-
-/*
-	public Vector<Integer> getBlanks() {
-		return blanks;
-	}
-*/
-
-/*
-	public void setBlanks(Vector<Integer> blanks) {
-		this.blanks = blanks;
-	}
-	*/
 }
