@@ -1,71 +1,65 @@
 package com.rft.horariumapp.horariumapp.businessLogic;
 
-import org.json.simple.JSONObject;
-import org.json.simple.JSONValue;
+import com.rft.horariumapp.horariumapp.model.Activity;
+import com.rft.horariumapp.horariumapp.model.Event;
+import com.rft.horariumapp.horariumapp.model.Time;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.Vector;
 
-import org.json.simple.JSONArray;
-import org.json.simple.parser.ParseException;
+import org.springframework.core.convert.converter.Converter;
 
 public class Horarium {
 
 	private final boolean Cancer = true;
-	private JSONObject task;
 
-	public Horarium(JSONObject task) {
-		this.task = task;
+	private final Converter<List<Activity>, List<Event>> activityListToEventListConverter;
 
+	public Horarium() {
+		activityListToEventListConverter = new ActivityListToEventListConverter();
 	}
 
-	public JSONObject getResult() throws FileNotFoundException, IOException, ParseException {
-
-		JSONObject result = (JSONObject) JSONValue.parse(task.toJSONString());
+	public List<Event> getResult(List<Activity> activities) {
 
 		Categories categories = new Categories();
 
 		String name;
 		int rule1, rule2, rule3, rule4;
 
-		JSONArray categoryList = (JSONArray) result.get("activity");
-		for (int i = 0; i < categoryList.size(); i++) {
-			Vector<Integer> hourList = new Vector<Integer>();
-			JSONObject category = (JSONObject) categoryList.get(i);
-			JSONArray times = (JSONArray) category.get("time");
-			JSONArray rules = (JSONArray) category.get("rules");
+		for (Activity activity : activities) {
+			Vector<Integer> hourList = new Vector<>();
+			List<Time> times = activity.getTimes();
+			List<Integer> rules = activity.getRules();
 
-			rule1 = ((Long) rules.get(0)).intValue();
-			rule2 = ((Long) rules.get(1)).intValue();
-			rule3 = ((Long) rules.get(2)).intValue();
-			rule4 = ((Long) rules.get(3)).intValue();
+			rule1 = rules.get(0);
+			rule2 = rules.get(1);
+			rule3 = rules.get(2);
+			rule4 = rules.get(3);
 
-			name = (String) category.get("name");
-			for (int j = 0; j < times.size(); j++) {
-				JSONObject time = (JSONObject) times.get(j);
-				int day = mapDays((String) time.get("day"));
-				JSONArray hours = (JSONArray) time.get("hours");
+			name = activity.getName();
+			for (Time time : times) {
+				int day = time.getDay();
+				List<Integer> hours = time.getHours();
 
 				for (int k = 0; k < hours.size(); k++) {
-					int hour = ((Long) hours.get(k)).intValue();					
-					
-					if(Cancer && hours.size()==2) { //pureCancer (TM), kill me
-						
-							int size = ((Long) hours.get(1)).intValue() - ((Long) hours.get(0)).intValue() - 1;
-							for(int h = 0;h<size;h++)
-								hourList.add((Integer)((Long) hours.get(0)).intValue()+h+1+day*24);
+					int hour = hours.get(k);
 
-							Collections.sort(hours);
-						}		
-					
-					hourList.add(hour + day * 24);	
+					if (Cancer && hours.size() == 2) { //pureCancer (TM), kill me
+
+						int size = hours.get(1) - hours.get(0) - 1;
+						for (int h = 0; h < size; h++)
+							hourList.add(hours.get(0) + h + 1 + day * 24);
+
+						Collections.sort(hours);
+					}
+
+					hourList.add(hour + day * 24);
 				}
-				
-			}						
-			categories.addCategory(name, hourList, rule1, rule2, rule3, rule4);	
+
+			}
+			categories.addCategory(name, hourList, rule1, rule2, rule3, rule4);
 
 		}
 
@@ -74,31 +68,27 @@ public class Horarium {
 
 		String genome = ee.getAllTimeFittestGenome();
 
-		for (int h = 0; h < categoryList.size(); h++) {
+		for (Activity category : activities) {
 
-			JSONObject category = (JSONObject) categoryList.get(h);
-			JSONArray times = (JSONArray) category.get("time");
-			String categoryName = (String) category.get("name");
+			List<Time> times = category.getTimes();
+			String categoryName = category.getName();
 
-			JSONArray newTimes = new JSONArray();
+			ArrayList<Time> newTimes = new ArrayList<>();
 
-			for (int j = 0; j < times.size(); j++) {
-				JSONObject time = (JSONObject) times.get(j);
-				JSONObject newTime = getNewTime(categories, genome, (String) time.get("day"), categoryName);
-				if (!newTime.isEmpty())
+			for (Time time : times) {
+				Time newTime = getNewTime(categories, genome, time.getDay(), categoryName);
+				if (newTime != null)
 					newTimes.add(newTime);
 
 			}
-			category.replace("time", newTimes);
+			category.setTimes(newTimes);
 
 		}
 
-		return result;
+		return activityListToEventListConverter.convert(activities);
 	}
 
-	private JSONObject getNewTime(Categories categories, String genome, String day, String category) {
-
-		JSONObject newTime = new JSONObject();
+	private Time getNewTime(Categories categories, String genome, Integer day, String category) {
 
 		ArrayList<Integer> hours = new ArrayList<>();
 
@@ -106,35 +96,18 @@ public class Horarium {
 
 			if (genome.charAt(i) != ' ' && categories.getCategoryName(genome.charAt(i)).equals(category)) {
 
-				if (day.equals(mapDays(i / 24)))
+				if (day.equals(i / 24))
 					hours.add(i % 24);
 			}
 
 		}
 
 		if (!hours.isEmpty()) {
-			newTime.put("hours", hours);
-			newTime.put("day", day);
+			return Time.builder().hours(hours).day(day).build();
 		}
 
-		return newTime;
+		return null;
 
-	}
-
-	private int mapDays(String day) { // pure Cancer (TM)
-		return day.equals("Hétfő") ? 0
-				: day.equals("Kedd") ? 1
-						: day.equals("Szerda") ? 2
-								: day.equals("Csütörtök") ? 3
-										: day.equals("Péntek") ? 4 : day.equals("Szombat") ? 5 : 6;
-	}
-
-	private String mapDays(int day) {
-		return day == 0 ? ("Hétfő")
-				: day == 1 ? ("Kedd")
-						: day == 2 ? ("Szerda")
-								: day == 3 ? ("Csütörtök")
-										: day == 4 ? ("Péntek") : day == 5 ? ("Szombat") : "Vasárnap";
 	}
 
 }

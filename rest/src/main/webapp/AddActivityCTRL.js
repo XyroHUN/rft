@@ -75,7 +75,7 @@ app.controller('addActivityCtrl', function($scope, $http, $location) {
                         hours.push(n);
                     }
                     var dayobj = {
-                        'day' : day,
+                        'day' : dayStringToInt(day),
                         'hours' : hours
                     }
                 thedays.push(dayobj);
@@ -83,7 +83,7 @@ app.controller('addActivityCtrl', function($scope, $http, $location) {
             }
             var content = {
                 'name' : $scope.activityName,
-                'time' : thedays,
+                'times' : thedays,
                 'rules' : [$scope.week.minAlkalom, $scope.week.maxAlkalom, $scope.week.minOra, $scope.week.maxOra]
             };
             $http.post('http://localhost:8080/rest/activity',content).then(function () {
@@ -130,5 +130,30 @@ app.controller('addActivityCtrl', function($scope, $http, $location) {
         $scope.week.minAlkalomError = '';
         $scope.week.minOraError ='';
         $scope.activityNameError=''    
+    }
+    dayStringToInt = function(day) {
+        switch (day) {
+            case 'Hétfő':
+                return 0;
+                break;
+            case 'Kedd':
+                return 1;
+                break;
+            case 'Szerda':
+                return 2;
+                break;
+            case 'Csütörtök':
+                return 3;
+                break;
+            case 'Péntek':
+                return 4;
+                break;
+            case 'Szombat':
+                return 5;
+                break;
+            case 'Vasárnap':
+                return 6;
+                break;
+        }
     }
 });

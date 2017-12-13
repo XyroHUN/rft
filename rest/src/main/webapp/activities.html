@@ -2,7 +2,7 @@
 <div class="card bg-secondary my-2" ng-repeat="act in data">
     <div class="card-body">
         <h4 class="card-title">{{act.name}}</h4>
-        <p class="card-text"><div class="" ng-repeat="days in act.time">{{days.day}} {{days.hours[0]}} - {{days.hours[days.hours.length-1]+1}}  </div></p>
+        <p class="card-text"><div ng-repeat="days in act.times">{{getDay(days.day)}} {{days.hours[0]}} - {{days.hours[days.hours.length-1]+1}}</div></p>
         <p></p>
         <i class="fa fa-trash fa-fw" ng-click="remove(act.id)"></i>
     </div>

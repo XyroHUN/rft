@@ -1,5 +1,6 @@
 package com.rft.horariumapp.horariumapp.service;
 
+import com.rft.horariumapp.horariumapp.businessLogic.Horarium;
 import com.rft.horariumapp.horariumapp.model.Event;
 import com.rft.horariumapp.horariumapp.model.Time;
 import com.rft.horariumapp.horariumapp.repository.EventRepository;
@@ -16,12 +17,21 @@ public class EventServiceImpl implements EventService {
     UserService userService;
 
     @Autowired
+    ActivityService activityService;
+
+    @Autowired
     EventRepository eventRepository;
 
     @Override
     public void generateEvents() {
+
         String email = userService.getCurrentUserEmail();
         eventRepository.removeEventsByOwnerEmail(email);
+
+
+        Horarium horarium = new Horarium();
+        eventRepository.save(horarium.getResult(activityService.listActivities()));
+        /*
         eventRepository.save(
             Arrays.asList(
                 Event.builder().ownerEmail(email).times(
@@ -44,7 +54,7 @@ public class EventServiceImpl implements EventService {
                 ).name("teszt4").build()
             )
         );
-
+        */
     }
 
     @Override

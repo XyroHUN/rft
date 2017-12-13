@@ -5,6 +5,7 @@ app.controller('activityCtrl', function($scope, $http, $location) {
     updateData = function () {
         $http.get("/rest/activity").then(function success(response) {
             $scope.data = response.data;
+            console.log($scope.data)
         })
     };
     $scope.remove = function(id) {
@@ -17,6 +18,17 @@ app.controller('activityCtrl', function($scope, $http, $location) {
             $location.path("/myday")
         })
 
+    }
+    $scope.getDay = function (day) {
+        switch (day) {
+            case 0 : return 'Monday';
+            case 1 : return 'Tuesday';
+            case 2 : return 'Wednesday';
+            case 3 : return 'Thursday';
+            case 4 : return 'Friday';
+            case 5 : return 'Saturday';
+            case 6 : return 'Sunday';
+        }
     }
     updateData();
 });
