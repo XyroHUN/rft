@@ -8,43 +8,44 @@ app.controller('addActivityCtrl', function($scope, $http, $location) {
             'fromError':'',
             'toError':'',
             'from': new Date(0,0,0,0,0,0,0),
-            'to': new Date(0,0,0,0,0,0,0), },
+            'to': new Date(0,0,0,0,0,0,0)
+        },
         'Kedd': {
             'opened':false,
             'fromError':'',
             'toError':'',
             'from': new Date(0,0,0,0,0,0,0),
-            'to': new Date(0,0,0,0,0,0,0),},
+            'to': new Date(0,0,0,0,0,0,0)},
         'Szerda': {
             'opened':false,
             'fromError':'',
             'toError':'',
             'from': new Date(0,0,0,0,0,0,0),
-            'to': new Date(0,0,0,0,0,0,0),},
+            'to': new Date(0,0,0,0,0,0,0)},
         'Csütörtök': {
             'opened':false,
             'fromError':'',
             'toError':'',
             'from': new Date(0,0,0,0,0,0,0),
-            'to': new Date(0,0,0,0,0,0,0),}, 
+            'to': new Date(0,0,0,0,0,0,0)},
         'Péntek': {
             'opened':false,
             'fromError':'',
             'toError':'',
             'from': new Date(0,0,0,0,0,0,0),
-            'to': new Date(0,0,0,0,0,0,0),},
+            'to': new Date(0,0,0,0,0,0,0)},
         'Szombat': {
             'opened':false,
             'fromError':'',
             'toError':'',
             'from': new Date(0,0,0,0,0,0,0),
-            'to': new Date(0,0,0,0,0,0,0),},
+            'to': new Date(0,0,0,0,0,0,0)},
         'Vasárnap': {
             'opened':false,
             'fromError':'',
             'toError':'',
             'from': new Date(0,0,0,0,0,0,0),
-            'to': new Date(0,0,0,0,0,0,0),}
+            'to': new Date(0,0,0,0,0,0,0)}
     }
 
     $scope.week = {
