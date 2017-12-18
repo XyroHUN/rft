@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Vector;
 
+import org.springframework.util.StringUtils;
+
 public class Environment {
 
 	private int populationSize;
@@ -46,14 +48,13 @@ public class Environment {
 
 		
 	private GroupedGenome groupingGenome(String genome) {
-				
+		
 		genome = genome.replace( " ", "");
 		
-		if(genome.length()>0)
+		if(genome.length()>0 && countUniqueCharacters(genome)>2)
 		while(genome.charAt(0)==genome.charAt(genome.length()-1)) {
 			genome = genome.charAt(0) + genome.substring(0, genome.length()-1);
 		}
-		
 		GroupedGenome gg = new GroupedGenome();
 		String geneSequence = genome.substring(0,1);
 						
@@ -68,8 +69,9 @@ public class Environment {
 					geneSequence = "" + genome.charAt(i); 
 				}
 		}
+		
 		gg.addGroup(geneSequence);
-		return gg;
+		return gg;		
 		
 	}
 	
@@ -77,30 +79,30 @@ public class Environment {
 
 		String s = "";
 		for (int i = 0; i < genomeSize; i++)
-			s += categories.getCategory(i, boldGeneRate);
+			s += categories.getCategory(i, boldGeneRate);		
 		
-		return s;
+		return allGeneLives(s)?s:generateGenome();
 	}
 	
 
 	public int fitness(String genome) {
-	
+		
 		int genomeFitness = 0;
 		int feasible = 0;
 		int weeklyCount = 0;
-		int hourlyCount = 0;
+		int hourlyCount = 0;		
 		
-		GroupedGenome gg = groupingGenome(genome);
+		GroupedGenome gg = groupingGenome(genome);		
 		
 		for (int i = 0; i < genome.length(); i++)  
-			if(categories.feasible(genome.charAt(i), i)) feasible++;
+			if(categories.feasible(genome.charAt(i), i)) feasible++;		
 		
 		for(int i = 0;i <gg.geneTypeCount();i++) {
 			
 			weeklyCount += categories.weeklyOptimal(gg.getGene(i), gg.getWeekly(i)) ? 1 : 0;
 			hourlyCount += categories.hourlyOptimal(gg.getGene(i), gg.getHourly(i)) ? 1 : 0;
 			
-		}
+		}		
 		
 		genomeFitness =( (100*feasible)/168 + (100*weeklyCount)/gg.geneTypeCount() + (100*hourlyCount)/gg.geneTypeCount())/3; 
 		
@@ -111,13 +113,25 @@ public class Environment {
 
 		Random rand = new Random();
 		String genome = "";
+		
 
 		for (int i = 0; i < genomeSize; i++) {
 			genome += rand.nextInt(100) < geneMutationRate ? categories.getCategory(i, boldGeneRate)
 					: u.getGenome().charAt(i);
 		}
 
-		return genome;
+		return allGeneLives(genome)?genome:mutateGenome(u);
 	}
 
+	public static long countUniqueCharacters(String input) {
+	    return input.chars()
+	            .distinct()
+	            .count();
+	}
+
+	
+	public boolean allGeneLives(String genome) {
+		return countUniqueCharacters(genome) - 1 == categories.getCategoryCount();
+	}
+	
 }

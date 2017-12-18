@@ -63,7 +63,7 @@ public class Horarium {
 
 		}
 
-		EvolutionEngine ee = new EvolutionEngine(categories, 100, 100, 35, 12, 12);
+		EvolutionEngine ee = new EvolutionEngine(categories, 150, 150, 35, 12, 12);
 		ee.evolution();
 
 		String genome = ee.getAllTimeFittestGenome();

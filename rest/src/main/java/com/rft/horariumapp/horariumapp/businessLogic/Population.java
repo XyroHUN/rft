@@ -28,17 +28,10 @@ public class Population {
 	public void evolve() {
 
 		Vector<Unit> nextGeneration = new Vector<>();
-	//	Unit u1, u2;
 
 		for (int i = 0; i < e.getPopulationSize(); i++) {
-/*
-			u1 = rouletteWheelSelection();
-			u2 = rouletteWheelSelection();
-			while (u1.equals(u2)) {
-				u2 = rouletteWheelSelection();
-			}
-*/
-			nextGeneration.add(new Unit(e, rouletteWheelSelection(), rouletteWheelSelection())); //osztódás lehet
+
+			nextGeneration.add(new Unit(e, rouletteWheelSelection(), rouletteWheelSelection())); //osztï¿½dï¿½s lehet
 		}
 
 		units.clear();

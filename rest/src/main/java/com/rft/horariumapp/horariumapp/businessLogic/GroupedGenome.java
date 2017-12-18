@@ -58,8 +58,6 @@ public class GroupedGenome {
 		
 		return "";
 		
-	}
-	
-	
+	}	
 
 }

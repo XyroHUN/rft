@@ -40,7 +40,11 @@ public class Unit {
 						? betterGenome.charAt(i) 
 						: worseGenome.charAt(i);
 
-		this.genome = s;
+						
+					
+		if(!e.allGeneLives(s)) s = better.getGenome();
+						
+		this.genome = s;		
 		this.fitness = e.fitness(s);
 
 	}
@@ -68,6 +72,5 @@ public class Unit {
 	public int getFitness() {
 		return fitness;
 	}
-
 
 }

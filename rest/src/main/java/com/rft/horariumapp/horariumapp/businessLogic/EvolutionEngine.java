@@ -4,7 +4,11 @@ import java.util.Vector;
 
 public class EvolutionEngine {
 
-	public EvolutionEngine(Categories categories, int maxCycle, int populationSize, int unitMutationRate, int geneMutationRate, int boldGeneRatio) {
+	public EvolutionEngine(Categories categories, int maxCycle, int populationSize, int unitMutationRate, int geneMutationRate, int boldGeneRatio) throws Exception {
+
+		if(categories.getCategoryCount() == 0) {
+			  throw new Exception("Must add at least one category");
+			}
 		
 		this.maxCycle = maxCycle;
 
