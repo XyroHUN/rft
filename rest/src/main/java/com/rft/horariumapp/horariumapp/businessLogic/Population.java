@@ -30,8 +30,20 @@ public class Population {
 		Vector<Unit> nextGeneration = new Vector<>();
 
 		for (int i = 0; i < e.getPopulationSize(); i++) {
+<<<<<<< HEAD
 
 			nextGeneration.add(new Unit(e, rouletteWheelSelection(), rouletteWheelSelection())); //oszt�d�s lehet
+=======
+/*
+			u1 = rouletteWheelSelection();
+			u2 = rouletteWheelSelection();
+			while (u1.equals(u2)) {
+				u2 = rouletteWheelSelection();
+			}
+*/
+			//nextGeneration.add(new Unit(e, rouletteWheelSelection(), rouletteWheelSelection())); //oszt�d�s lehet
+			nextGeneration.add(new Unit(e));
+>>>>>>> branch 'master' of https://github.com/XyroHUN/rft.git
 		}
 
 		units.clear();

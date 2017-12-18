@@ -7,6 +7,7 @@ import com.rft.horariumapp.horariumapp.model.Time;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 import java.util.Vector;
 
 import org.springframework.core.convert.converter.Converter;
@@ -20,11 +21,12 @@ public class Horarium {
 	public Horarium() {
 		activityListToEventListConverter = new ActivityListToEventListConverter();
 	}
-
+	
 	public List<Event> getResult(List<Activity> activities) {
 
 		Categories categories = new Categories();
 
+		Random rand = new Random();
 		String name;
 		int rule1, rule2, rule3, rule4;
 
@@ -37,27 +39,37 @@ public class Horarium {
 			rule2 = rules.get(1);
 			rule3 = rules.get(2);
 			rule4 = rules.get(3);
-
 			name = activity.getName();
+			int t = 0;
 			for (Time time : times) {
 				int day = time.getDay();
 				List<Integer> hours = time.getHours();
-
+				
+				if(hours.size()-rule2 <= 0) {
+					t = 0;
+				}else {
+					t = rand.nextInt(hours.size()-rule2) + 0;
+				}
+				
+				if(rule2 > hours.size()) {
+					for (int k = t; k < rule1+t; k++) {
+						int hour = hours.get(k);
+						hourList.add(hour + day * 24);						
+					}
+				}else {
+					for (int k = t; k < rule2+t; k++) {
+						int hour = hours.get(k);
+						hourList.add(hour + day * 24);
+					}
+				}
+/*				
 				for (int k = 0; k < hours.size(); k++) {
 					int hour = hours.get(k);
 
-					if (Cancer && hours.size() == 2) { //pureCancer (TM), kill me
-
-						int size = hours.get(1) - hours.get(0) - 1;
-						for (int h = 0; h < size; h++)
-							hourList.add(hours.get(0) + h + 1 + day * 24);
-
-						Collections.sort(hours);
-					}
 
 					hourList.add(hour + day * 24);
 				}
-
+*/
 			}
 			categories.addCategory(name, hourList, rule1, rule2, rule3, rule4);
 
@@ -91,13 +103,15 @@ public class Horarium {
 	private Time getNewTime(Categories categories, String genome, Integer day, String category) {
 
 		ArrayList<Integer> hours = new ArrayList<>();
-
+		
 		for (int i = 0; i < genome.length(); i++) {
 
 			if (genome.charAt(i) != ' ' && categories.getCategoryName(genome.charAt(i)).equals(category)) {
 
-				if (day.equals(i / 24))
+				if (day.equals(i / 24)) {
 					hours.add(i % 24);
+					
+				}
 			}
 
 		}
