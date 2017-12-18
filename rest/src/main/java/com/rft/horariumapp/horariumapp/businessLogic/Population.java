@@ -38,7 +38,8 @@ public class Population {
 				u2 = rouletteWheelSelection();
 			}
 */
-			nextGeneration.add(new Unit(e, rouletteWheelSelection(), rouletteWheelSelection())); //osztódás lehet
+			//nextGeneration.add(new Unit(e, rouletteWheelSelection(), rouletteWheelSelection())); //osztï¿½dï¿½s lehet
+			nextGeneration.add(new Unit(e));
 		}
 
 		units.clear();

@@ -2,6 +2,7 @@ app.controller('myDayCtrl', function($scope, $http, $location) {
     var defaultFirstDay = '2017-12-1';
     var events = [];
     $http.get("/event").then(function (response) {
+    	console.log(response.data);
         response.data.forEach(function (event) {
             event.times.forEach(function (time) {
                 //var startSeparator = 'T' + (Math.min.apply(null, time.hours) < 10 ? 0 : '');

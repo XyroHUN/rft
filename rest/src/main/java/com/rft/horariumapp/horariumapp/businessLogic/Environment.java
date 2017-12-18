@@ -47,16 +47,22 @@ public class Environment {
 		
 	private GroupedGenome groupingGenome(String genome) {
 				
-		genome = genome.replace( " ", "");
+		genome = genome.replace(" ", "");
 		
-		if(genome.length()>0)
-		while(genome.charAt(0)==genome.charAt(genome.length()-1)) {
-			genome = genome.charAt(0) + genome.substring(0, genome.length()-1);
+		int j = 0;
+		if(genome.length()>0) {
+			while(genome.charAt(0)==genome.charAt(genome.length()-1) && j < 150) {
+				genome = genome.charAt(0) + genome.substring(0, genome.length()-1);
+				j++;
+			}
 		}
-		
 		GroupedGenome gg = new GroupedGenome();
-		String geneSequence = genome.substring(0,1);
-						
+		//itt
+		//System.out.println(genome);
+		String geneSequence = genome;
+		//System.out.println(geneSequence);
+		
+		
 		for(int i = 1; i< genome.length(); i++) {
 				if(genome.charAt(i)==geneSequence.charAt(geneSequence.length()-1)) {
 				
@@ -101,9 +107,11 @@ public class Environment {
 			hourlyCount += categories.hourlyOptimal(gg.getGene(i), gg.getHourly(i)) ? 1 : 0;
 			
 		}
-		
-		genomeFitness =( (100*feasible)/168 + (100*weeklyCount)/gg.geneTypeCount() + (100*hourlyCount)/gg.geneTypeCount())/3; 
-		
+		if(gg.geneTypeCount() != 0) {
+			genomeFitness =( (100*feasible)/168 + (100*weeklyCount)/gg.geneTypeCount() + (100*hourlyCount)/gg.geneTypeCount())/3; 
+		}else {
+			genomeFitness =( (100*feasible)/168 + (100*weeklyCount)/3 + (100*hourlyCount)/3)/3;
+		}
 		return genomeFitness;
 	}
 
