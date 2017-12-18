@@ -24,7 +24,7 @@ public class GroupedGenome {
 			}
 		}
 		
-		if(exist) {
+		if(!exist) {
 			genes.add(new GeneGroup(sequence.charAt(0)));
 			genes.lastElement().increaseWeekly();
 			genes.lastElement().addHours(sequence.length());
