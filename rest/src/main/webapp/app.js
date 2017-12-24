@@ -18,7 +18,8 @@ var app = angular.module('Horarium', ['ngRoute']).config(function ($sceProvider)
             templateUrl: 'myerror.html'
         })
         .when('/myday', {
-            templateUrl: 'myday.html'
+            templateUrl: 'myday.html',
+            controller: 'myDayCtrl'
         })
         .otherwise({
             templateUrl : 'login.html',

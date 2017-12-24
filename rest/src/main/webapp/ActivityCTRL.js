@@ -13,7 +13,10 @@ app.controller('activityCtrl', function($scope, $http, $location) {
         });
     };
     $scope.generate = function() {
-        $location.path("/myday")
+        $http.post("/event").then(function success() {
+            $location.path("/myday")
+        })
+
     }
     updateData();
 });
